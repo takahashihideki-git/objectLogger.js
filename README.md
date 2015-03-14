@@ -14,7 +14,15 @@ ObjectLogger outputs logs into the browser console.
 
 You can set custom logging function to constructor.
 
-ObjectLogger outputs chart as below.
+    var textarea = document.querySelector( "textarea" );
+
+    var logger = new ObjectLogger( function ( log ) {
+      // custom log
+      var body = log.body instanceof Object ? JSON.stringify( log.body ) : log.body;
+      textarea.value = textarea.value + body + "\n";
+    } );
+
+and chart() method outputs chart as below.
 
 <p>
 <img src="https://raw.githubusercontent.com/takahashihideki-git/objectLogger.js/master/sample/screenshot-chart.png">
