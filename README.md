@@ -10,7 +10,7 @@ logging coordinated operation between user-defined objects.
       { constructor: Dog, className: "Dog" }
     ] );
 
-ObjectLogger outputs logs into the browser console.
+ObjectLogger outputs log into the browser console.
 
 You can set custom logging function to constructor.
 

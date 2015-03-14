@@ -2,10 +2,23 @@
 <html>
 <head>
 <title>Logger</title>
+<style>
+  canvas {
+    position: static !important;
+  }
+</style>
 </head>
 <body>
 
-<p>draw log chart.</p>
+<h1>Sample: Log Chart</h1>
+
+<p>Usage:</p>
+
+<ol>
+	<li>ObjectLogger "chart()" method is the toggle switch for showing the chart.</li>
+	<li>Click the class name at top of the lane: Output instance object into the browser console.</li>
+	<li>Click the method name on the lane: Output log object into the browser console.</li>
+</ol>
 
 <script src="../src/objectLogger.js"></script>
 <script>
@@ -15,7 +28,7 @@
 // ----------------------------------------------------------------------------
 
 var Class = function () {
-}
+}	
 Class.prototype = {
 
 	set: function ( property, value ) {
