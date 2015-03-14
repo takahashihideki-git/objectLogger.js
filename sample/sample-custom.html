@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Logger</title>
+</head>
+<body>
+
+<p>display logs below.</p>
+<textarea style="width:100%; height:400px; line-height: 1.8"></textarea>
+
+<script src="../src/objectLogger.js"></script>
+<script>
+
+// ----------------------------------------------------------------------------
+// Class Class
+// ----------------------------------------------------------------------------
+
+var Class = function () {
+}
+Class.prototype = {
+
+	set: function ( property, value ) {
+		this[ property ] = value;
+	},
+
+	get: function ( property ) {
+
+		if ( this[ property ] ) {
+			return this[ property ];
+		}
+		else {
+			return false;
+		}
+	},
+
+	mix: function () {
+
+	  var mixed = new Object();
+
+	  for( var i = 0; i < arguments.length; i++ ){
+	    for ( var key in arguments[ i ] ) {
+	        mixed[ key ] = arguments[ i ][ key ];
+	    }
+	  }
+	  
+	  return mixed;
+
+	},
+
+	extend: function ( parent, self ) {
+
+		var extended = new parent();
+
+		for ( var key in self  ) {
+			extended[ key ] = self[ key ]
+		}
+
+		return extended;
+
+	}
+
+}
+
+// ----------------------------------------------------------------------------
+// Man Class
+// ----------------------------------------------------------------------------
+
+var Man = function () {
+}
+Man.prototype = Class.prototype.extend( Class, {
+	name: "",
+	feed: function ( dog ) {
+		if ( dog instanceof Dog ) {
+			dog.obey( this );
+		}
+	}
+} )
+
+// ----------------------------------------------------------------------------
+// Dog Class
+// ----------------------------------------------------------------------------
+var Dog = function () {
+}
+Dog.prototype = Class.prototype.extend( Class, {
+	name: "",
+	owner: null,
+	bark: function () {
+		this.res( "bow wow!" );
+	},
+	obey: function ( man ) {
+		if ( man instanceof Man ) {
+			this.owner = man;
+		}
+	},
+	paw: function ( man ) {
+		if ( man.get( "name" ) == this.owner.get( "name" ) ) {
+			this.res( "paw" );
+		}
+		else {
+			this.bark();
+		}
+	},
+  res: function ( message ) {
+    console.log( message );
+  }
+} )
+
+// ----------------------------------------------------------------------------
+// Main
+// ----------------------------------------------------------------------------
+
+var textarea = document.querySelector( "textarea" );
+
+var logger = new ObjectLogger( function ( log ) {
+  // custom log
+  var body = log.body instanceof Object ? JSON.stringify( log.body ) : log.body;
+  textarea.value = textarea.value + body + "\n";
+} );
+
+logger.watch( [ 
+	{ constructor: Man, className: "Man" },
+	{ constructor: Dog, className: "Dog" }
+] );
+
+var john = new Man();
+john.set( "name", "john" );
+
+var mary = new Man();
+mary.set( "name", "mary" );
+
+var hachi = new Dog();
+hachi.set( "name", "hachi" );
+
+john.feed( hachi );
+
+console.log( "john said to hachi: Show me your paw." );
+hachi.paw( john );
+
+console.log( "mary said to hachi: Show me your paw." );
+hachi.paw( mary );
+
+</script>
+</body>
+</html>
