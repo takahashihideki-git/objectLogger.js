@@ -22,7 +22,7 @@ You can set custom logging function to constructor.
       textarea.value = textarea.value + body + "\n";
     } );
 
-and chart() method outputs chart as below.
+and chart() method draws chart as below.
 
 <p>
 <img src="https://raw.githubusercontent.com/takahashihideki-git/objectLogger.js/master/sample/screenshot-chart.png">
